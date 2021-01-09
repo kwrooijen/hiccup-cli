@@ -20,7 +20,12 @@
        (re-matches #"^(\s|\n)*<!--.*-->(\s|\n)*$" v)))
 
 (defn walk-remove [pred coll]
-  (walk/postwalk (fn [x] (when-not (pred x) x)) coll))
+  (walk/postwalk
+   (fn [x]
+     (cond
+       (and (string? x) (empty? x)) ""
+       (pred x) nil
+       :else x)) coll))
 
 (defn removable? [x]
   (or (= {} x)
