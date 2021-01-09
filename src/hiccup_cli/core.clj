@@ -1,5 +1,6 @@
 (ns hiccup-cli.core
   (:require
+   [clojure.string :as string]
    [clojure.walk :as walk]
    [hickory.core :as hickory]
    [clojure.tools.cli :refer [parse-opts]]
@@ -13,11 +14,11 @@
 
 (defn whitespace? [v]
   (and (string? v)
-       (re-matches #"^(\s|\n)*$" v)))
+       (re-matches #"(?s)^(\s|\n)*$" v)))
 
 (defn comment? [v]
   (and (string? v)
-       (re-matches #"^(\s|\n)*<!--.*-->(\s|\n)*$" v)))
+       (re-matches #"(?s)^(\s|\n)*<!--.*-->(\s|\n)*$" v)))
 
 (defn walk-remove [pred coll]
   (walk/postwalk
@@ -25,6 +26,7 @@
      (cond
        (and (string? x) (empty? x)) ""
        (pred x) nil
+       (string? x) (string/trim x)
        :else x)) coll))
 
 (defn removable? [x]

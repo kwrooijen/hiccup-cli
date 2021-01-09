@@ -16,7 +16,7 @@
   (save-excursion
     (insert
      (shell-command-to-string
-      (format "hiccup-cli --html '%s'" (clipboard-string))))))
+      (format "hiccup-cli --html '%s'" (hiccup-paste--clipboard-string))))))
 
 (provide 'hiccup-paste)
 
