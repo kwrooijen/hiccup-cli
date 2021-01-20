@@ -8,7 +8,8 @@
   (:gen-class))
 
 (def cli-options
-  [[nil "--html HTML" "HTML"]])
+  [[nil "--html HTML" "HTML"]
+   [nil "--html-file FILE" "FILE"]])
 
 (set! *warn-on-reflection* true)
 
@@ -60,7 +61,7 @@
 (defn -main [& args]
   (let [{:keys [options arguments errors summary]} (parse-opts args cli-options)]
     (zp/zprint
-     (parse (:html options))
+     (parse (slurp (:html-file options)))
      {:map {:comma? false}
       :color? false
       :style :hiccup})))

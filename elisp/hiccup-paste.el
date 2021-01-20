@@ -13,10 +13,11 @@
 (defun hiccup-paste--paste-as-hiccup ()
   "Paste the HTML in your clipboard as Hiccup syntax."
   (interactive)
+  (write-region (hiccup-paste--clipboard-string) nil "~/tmp-hiccup-paste")
   (save-excursion
     (insert
      (shell-command-to-string
-      (format "hiccup-cli --html '%s'" (hiccup-paste--clipboard-string))))))
+      "hiccup-cli --html-file ~/tmp-hiccup-paste"))))
 
 (provide 'hiccup-paste)
 
