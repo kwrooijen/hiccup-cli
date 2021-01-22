@@ -4,11 +4,8 @@
   :min-lein-version "2.0.0"
   :dependencies [[org.clojure/clojure "1.9.0"]
                  [kwrooijen/hickory "0.7.1"]
-                 ;; [hickory "0.7.1"]
                  [org.clojure/tools.cli "1.0.194"]
-                 ;; [zprint "1.0.2"]
-                 [zprint "1.0.2"]
-                 ]
+                 [zprint "1.1.1"]]
   :plugins [[io.taylorwood/lein-native-image "0.3.1"]]
   :main ^:skip-aot hiccup-cli.core
   :resource-paths ["resources"]
