@@ -1,6 +1,6 @@
 (defproject hiccup-cli "0.1.0-SNAPSHOT"
-  :description "FIXME: write description"
-  :url "http://example.com/FIXME"
+  :description "Command line tool to convert HTML to Hiccup"
+  :url "https://github.com/kwrooijen/hiccup-cli"
   :min-lein-version "2.0.0"
   :dependencies [[org.clojure/clojure "1.10.2-rc3"]
                  [org.clojure/clojurescript "1.9.293"]
