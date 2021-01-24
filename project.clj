@@ -2,9 +2,11 @@
   :description "FIXME: write description"
   :url "http://example.com/FIXME"
   :min-lein-version "2.0.0"
-  :dependencies [[org.clojure/clojure "1.9.0"]
+  :dependencies [[org.clojure/clojure "1.10.2-rc3"]
+                 [org.clojure/clojurescript "1.9.293"]
                  [kwrooijen/hickory "0.7.1"]
                  [org.clojure/tools.cli "1.0.194"]
+                 [org.jsoup/jsoup "1.13.1"]
                  [zprint "1.1.1"]]
   :plugins [[io.taylorwood/lein-native-image "0.3.1"]]
   :main ^:skip-aot hiccup-cli.core
@@ -19,8 +21,7 @@
                         "--verbose"
                         "-Dclojure.compiler.direct-linking=true"
                         "-H:+ReportExceptionStackTraces"
-                        "-H:EnableURLProtocols=https,http"
-                        "-H:IncludeResources=.*.edn"]}
+                        "-H:EnableURLProtocols=https,http"]}
 
   :uberjar-name "hiccup-cli-main.jar"
 

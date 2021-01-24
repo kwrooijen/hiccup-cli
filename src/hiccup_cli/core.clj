@@ -6,7 +6,8 @@
    [clojure.tools.cli :refer [parse-opts]]
    [zprint.core :as zp])
   (:import [org.jsoup Jsoup]
-           [org.jsoup.parser Parser])
+           [org.jsoup.parser Parser]
+           [org.jsoup.nodes TextNode])
   (:gen-class))
 
 (def cli-options
@@ -23,11 +24,16 @@
   (and (string? v)
        (re-matches #"(?s)^(\s|\n)*<!--.*-->(\s|\n)*$" v)))
 
+(defn- empty-text-node? [x]
+  (and (= TextNode (type x))
+       (.isBlank ^TextNode x)))
+
 (defn- walk-remove [pred coll]
   (walk/postwalk
    (fn [x]
      (cond
        (and (string? x) (empty? x)) ""
+       (empty-text-node? x) nil
        (pred x) nil
        (string? x) (string/trim x)
        :else x))
@@ -52,7 +58,7 @@
     (first parsed)
     parsed))
 
-(defn- parse [html]
+(defn- parse [^String html]
   (->> (Jsoup/parse html "" (Parser/xmlParser))
        (hickory/as-hiccup)
        (walk-remove
