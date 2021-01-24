@@ -1,5 +1,7 @@
 # Hiccup-cli
 
+Command line tool / Emacs plugin to convert HTML to Hiccup syntax.
+
 ## Installation
 
 ### Building hiccup-cli
