@@ -1,4 +1,4 @@
-;;; hiccup-cli.el --- Paste HTML as Hiccup syntax
+;;; hiccup-cli.el --- Convert HTML to Hiccup syntax -*- lexical-binding: t; -*-
 
 ;; Copyright (C) 2021  Kevin W. van Rooijen
 
