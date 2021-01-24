@@ -36,6 +36,7 @@ Use `hiccup-cli--region-as-hiccup` to transform the selected HTML to Hiccup synt
 
 
 Use `hiccup-cli--yank-as-hiccup` or `hiccup-cli--paste-as-hiccup` to paste HTML as Hiccup from either your kill-ring or clipboard
+
 ![hiccup yank](https://raw.githubusercontent.com/kwrooijen/hiccup-cli/master/assets/hiccup-yank.gif)
 
 
