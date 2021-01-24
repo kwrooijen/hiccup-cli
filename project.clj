@@ -7,6 +7,7 @@
                  [kwrooijen/hickory "0.7.1"]
                  [org.clojure/tools.cli "1.0.194"]
                  [org.jsoup/jsoup "1.13.1"]
+                 [org.clojure/tools.reader "1.3.4"]
                  [zprint "1.1.1"]]
   :plugins [[io.taylorwood/lein-native-image "0.3.1"]]
   :main ^:skip-aot hiccup-cli.core
