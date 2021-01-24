@@ -1,5 +1,32 @@
-;;; Package --- Paste HTML as Hiccup syntax
+;;; hiccup-cli.el --- Paste HTML as Hiccup syntax
+
+;; Copyright (C) 2021  Kevin W. van Rooijen
+
+;; Author: Kevin W. van Rooijen
+;; Version  : 0.1.0
+;; Keywords: tools
+
+;; This program is free software; you can redistribute it and/or modify
+;; it under the terms of the GNU General Public License as published by
+;; the Free Software Foundation, either version 3 of the License, or
+;; (at your option) any later version.
+
+;; This program is distributed in the hope that it will be useful,
+;; but WITHOUT ANY WARRANTY; without even the implied warranty of
+;; MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+;; GNU General Public License for more details.
+
+;; You should have received a copy of the GNU General Public License
+;; along with this program.  If not, see <http://www.gnu.org/licenses/>.
+
 ;;; Commentary:
+;;
+;; Available functions:
+;;
+;; hiccup-cli--paste-as-hiccup
+;; hiccup-cli--region-as-hiccup
+;; hiccup-cli--yank-as-hiccup
+
 ;;; Code:
 
 (defgroup hiccup-cli nil
@@ -41,12 +68,14 @@
               hiccup-cli--custom-path-to-bin
               hiccup-cli--custom-path-to-tmp-file)))))
 
+;;;###autoload
 (defun hiccup-cli--paste-as-hiccup ()
   "Paste the HTML in your clipboard as Hiccup syntax."
   (interactive)
   (hiccup-cli--write-to-tmp-file (hiccup-cli--clipboard-string))
   (hiccup-cli--insert))
 
+;;;###autoload
 (defun hiccup-cli--region-as-hiccup (start end)
   "Replace the HTML in your selected START END region with Hiccup syntax."
   (interactive "r")
@@ -56,6 +85,7 @@
         (hiccup-cli--write-to-tmp-file region-str)
         (hiccup-cli--insert))))
 
+;;;###autoload
 (defun hiccup-cli--yank-as-hiccup ()
   "Paste the HTML in your `kill-ring` as Hiccup syntax."
   (interactive)
