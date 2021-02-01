@@ -21,7 +21,7 @@
 ;; GNU General Public License for more details.
 
 ;; You should have received a copy of the GNU General Public License
-;; along with this program.  If not, see <http://www.gnu.org/licenses/>.
+;; along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
 ;;; Commentary:
 ;;
@@ -38,14 +38,14 @@
   :prefix "hiccup-cli-"
   :group 'tools)
 
-(defcustom hiccup-cli--custom-path-to-bin
+(defcustom hiccup-cli-custom-path-to-bin
   (or (executable-find "hiccup-cli")
       "hiccup-cli")
   "Custom path to the hiccup-cli executable."
   :type 'file
   :group 'hiccup-cli)
 
-(defcustom hiccup-cli--custom-path-to-tmp-file
+(defcustom hiccup-cli-custom-path-to-tmp-file
   "/tmp/hiccup-cli"
   "Custom path to the hiccup-cli tmp file."
   :type 'file
@@ -61,7 +61,7 @@
 
 (defun hiccup-cli--write-to-tmp-file (string)
   "Write STRING to `hiccup-cli--custom-path-to-tmp-file`."
-  (write-region string nil hiccup-cli--custom-path-to-tmp-file))
+  (write-region string nil hiccup-cli-custom-path-to-tmp-file))
 
 (defun hiccup-cli--insert ()
   "Insert converted Hiccup from `hiccup-cli--custom-path-to-tmp-file` into buffer."
@@ -69,8 +69,8 @@
     (insert
      (shell-command-to-string
       (format "%s --html-file %s"
-              hiccup-cli--custom-path-to-bin
-              hiccup-cli--custom-path-to-tmp-file)))))
+              hiccup-cli-custom-path-to-bin
+              hiccup-cli-custom-path-to-tmp-file)))))
 
 ;;;###autoload
 (defun hiccup-cli-paste-as-hiccup ()
