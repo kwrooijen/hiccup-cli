@@ -1,10 +1,14 @@
 ;;; hiccup-cli.el --- Convert HTML to Hiccup syntax -*- lexical-binding: t; -*-
 
 ;; Copyright (C) 2021  Kevin W. van Rooijen
-
+;;
 ;; Author: Kevin W. van Rooijen
+;; URL: https://github.com/kwrooijen/hiccup-cli
+
 ;; Version  : 0.1.0
 ;; Keywords: tools
+;; Package-Requires: ((emacs "25.1"))
+
 
 ;; This program is free software; you can redistribute it and/or modify
 ;; it under the terms of the GNU General Public License as published by
@@ -69,14 +73,14 @@
               hiccup-cli--custom-path-to-tmp-file)))))
 
 ;;;###autoload
-(defun hiccup-cli--paste-as-hiccup ()
+(defun hiccup-cli-paste-as-hiccup ()
   "Paste the HTML in your clipboard as Hiccup syntax."
   (interactive)
   (hiccup-cli--write-to-tmp-file (hiccup-cli--clipboard-string))
   (hiccup-cli--insert))
 
 ;;;###autoload
-(defun hiccup-cli--region-as-hiccup (start end)
+(defun hiccup-cli-region-as-hiccup (start end)
   "Replace the HTML in your selected START END region with Hiccup syntax."
   (interactive "r")
   (if (use-region-p)
@@ -86,7 +90,7 @@
         (hiccup-cli--insert))))
 
 ;;;###autoload
-(defun hiccup-cli--yank-as-hiccup ()
+(defun hiccup-cli-yank-as-hiccup ()
   "Paste the HTML in your `kill-ring` as Hiccup syntax."
   (interactive)
   (hiccup-cli--write-to-tmp-file (substring-no-properties (car kill-ring)))
