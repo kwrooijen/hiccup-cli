@@ -5,31 +5,40 @@
 ;; Author: Kevin W. van Rooijen
 ;; URL: https://github.com/kwrooijen/hiccup-cli
 
-;; Version  : 0.1.0
+;; Version: 0.1.0
 ;; Keywords: tools
-;; Package-Requires: ((emacs "25.1"))
+;; Package-Requires: ((emacs "26.1"))
 
+;; Copyright 2021 Kevin W. van Rooijen
 
-;; This program is free software; you can redistribute it and/or modify
-;; it under the terms of the GNU General Public License as published by
-;; the Free Software Foundation, either version 3 of the License, or
-;; (at your option) any later version.
+;; Permission is hereby granted, free of charge, to any person obtaining a copy
+;; of this software and associated documentation files (the "Software"), to deal
+;; in the Software without restriction, including without limitation the rights
+;; to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+;; copies of the Software, and to permit persons to whom the Software is
+;; furnished to do so, subject to the following conditions:
 
-;; This program is distributed in the hope that it will be useful,
-;; but WITHOUT ANY WARRANTY; without even the implied warranty of
-;; MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-;; GNU General Public License for more details.
+;; The above copyright notice and this permission notice shall be included in
+;; all copies or substantial portions of the Software.
 
-;; You should have received a copy of the GNU General Public License
-;; along with this program.  If not, see <https://www.gnu.org/licenses/>.
+;; THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+;; IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+;; FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+;; AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+;; LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+;; OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+;; SOFTWARE.
 
 ;;; Commentary:
 ;;
+;; Convert standard HTML to Clojure's Hiccup syntax
+;; (https://github.com/weavejester/hiccup).
+;;
 ;; Available functions:
 ;;
-;; hiccup-cli--paste-as-hiccup
-;; hiccup-cli--region-as-hiccup
-;; hiccup-cli--yank-as-hiccup
+;; hiccup-cli-paste-as-hiccup
+;; hiccup-cli-region-as-hiccup
+;; hiccup-cli-yank-as-hiccup
 
 ;;; Code:
 
@@ -46,13 +55,13 @@
   :group 'hiccup-cli)
 
 (defcustom hiccup-cli-custom-path-to-tmp-file
-  "/tmp/hiccup-cli"
+  (concat (temporary-file-directory) "hiccup-cli-content")
   "Custom path to the hiccup-cli tmp file."
   :type 'file
   :group 'hiccup-cli)
 
 (defun hiccup-cli--clipboard-string ()
-  "Return the currency value of the clipboard as a string."
+  "Return the current value of the clipboard as a string."
   (let ((clipboard-text (gui--selection-value-internal 'CLIPBOARD))
 	(select-enable-clipboard t))
     (if (and clipboard-text (> (length clipboard-text) 0))
@@ -60,11 +69,11 @@
     (car kill-ring)))
 
 (defun hiccup-cli--write-to-tmp-file (string)
-  "Write STRING to `hiccup-cli--custom-path-to-tmp-file`."
+  "Write STRING to `hiccup-cli--custom-path-to-tmp-file'."
   (write-region string nil hiccup-cli-custom-path-to-tmp-file))
 
 (defun hiccup-cli--insert ()
-  "Insert converted Hiccup from `hiccup-cli--custom-path-to-tmp-file` into buffer."
+  "Insert converted Hiccup from `hiccup-cli--custom-path-to-tmp-file' into buffer."
   (save-excursion
     (insert
      (shell-command-to-string
@@ -91,7 +100,7 @@
 
 ;;;###autoload
 (defun hiccup-cli-yank-as-hiccup ()
-  "Paste the HTML in your `kill-ring` as Hiccup syntax."
+  "Paste the HTML in your `kill-ring' as Hiccup syntax."
   (interactive)
   (hiccup-cli--write-to-tmp-file (substring-no-properties (car kill-ring)))
   (hiccup-cli--insert))
