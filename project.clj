@@ -13,7 +13,8 @@
   :main ^:skip-aot hiccup-cli.core
   :resource-paths ["resources"]
   :source-paths ["src"]
-  :native-image {:opts ["--allow-incomplete-classpath"
+  :native-image {:name "hiccup-cli"
+                 :opts ["--allow-incomplete-classpath"
                         "--enable-url-protocols=http,https"
                         "--initialize-at-build-time"
                         "--no-fallback"
