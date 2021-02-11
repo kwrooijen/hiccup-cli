@@ -33,7 +33,7 @@ jobs:
         run: |
           lein native-image
       - name: Zip binary
-        run: zip hiccup-cli-linux-amd64.zip target/hiccup-cli
+        run: zip hiccup-cli-linux-amd64.zip hiccup-cli
 
       - name: Upload
         uses: actions/upload-artifact@v2
@@ -70,7 +70,7 @@ jobs:
         run: |
           lein native-image
       - name: Zip binary
-        run: zip hiccup-cli-static-linux-amd64.zip target/hiccup-cli
+        run: zip hiccup-cli-static-linux-amd64.zip hiccup-cli
 
       - name: Upload
         uses: actions/upload-artifact@v2
@@ -105,7 +105,7 @@ jobs:
         run: |
           lein native-image
       - name: Zip binary
-        run: zip hiccup-cli-macos-amd64.zip target/hiccup-cli
+        run: zip hiccup-cli-macos-amd64.zip hiccup-cli
 
       - name: Upload
         uses: actions/upload-artifact@v2
@@ -142,7 +142,7 @@ jobs:
         run: |
           lein native-image
       - name: Zip binary
-        run: jar -cMf hiccup-cli-windows-amd64.zip target/hiccup-cli.exe
+        run: jar -cMf hiccup-cli-windows-amd64.zip hiccup-cli.exe
 
       - name: Upload
         uses: actions/upload-artifact@v2

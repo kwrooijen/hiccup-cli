@@ -12,6 +12,11 @@
            "-H:+ReportExceptionStackTraces"
            "-H:EnableURLProtocols=https,http"]))
 
+(defn native-output []
+  (if (-> (System/getProperty "os.name") (clojure.string/starts-with? "Windows"))
+    "..\\hiccup-cli"
+    "../hiccup-cli"))
+
 (defproject hiccup-cli "0.1.0-SNAPSHOT"
   :description "Command line tool to convert HTML to Hiccup"
   :url "https://github.com/kwrooijen/hiccup-cli"
@@ -27,7 +32,7 @@
   :main ^:skip-aot hiccup-cli.core
   :resource-paths ["resources"]
   :source-paths ["src"]
-  :native-image {:name "hiccup-cli"
+  :native-image {:name #=(native-output)
                  :opts #=(native-image-args)}
 
   :uberjar-name "hiccup-cli-main.jar"
