@@ -152,7 +152,7 @@ jobs:
 
   release:
     name: Create Release
-    needs: [native-linux, native-macos, native-windows]
+    needs: [native-linux, native-static-linux, native-macos, native-windows]
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v1
