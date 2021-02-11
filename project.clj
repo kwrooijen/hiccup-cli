@@ -1,15 +1,16 @@
 (defn  native-image-args []
-  [(if (System/getenv "HICCUP_CLI_STATIC") "--static" "")
-   "--allow-incomplete-classpath"
-   "--enable-url-protocols=http,https"
-   "--initialize-at-build-time"
-   "--no-fallback"
-   "--no-server"
-   "--report-unsupported-elements-at-runtime"
-   "--verbose"
-   "-Dclojure.compiler.direct-linking=true"
-   "-H:+ReportExceptionStackTraces"
-   "-H:EnableURLProtocols=https,http"])
+  (filter identity
+          [(when (System/getenv "HICCUP_CLI_STATIC") "--static")
+           "--allow-incomplete-classpath"
+           "--enable-url-protocols=http,https"
+           "--initialize-at-build-time"
+           "--no-fallback"
+           "--no-server"
+           "--report-unsupported-elements-at-runtime"
+           "--verbose"
+           "-Dclojure.compiler.direct-linking=true"
+           "-H:+ReportExceptionStackTraces"
+           "-H:EnableURLProtocols=https,http"]))
 
 (defproject hiccup-cli "0.1.0-SNAPSHOT"
   :description "Command line tool to convert HTML to Hiccup"
