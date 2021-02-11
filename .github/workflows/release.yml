@@ -10,11 +10,6 @@ jobs:
     name: Build native linux binary
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v2
-      - uses: actions/download-artifact@v2
-        with:
-          name: hiccup-cli.jar
-
       - name: Install Leiningen
         uses: DeLaGuardo/setup-clojure@master
         with:
@@ -44,11 +39,6 @@ jobs:
     name: Build native static linux binary
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v2
-      - uses: actions/download-artifact@v2
-        with:
-          name: hiccup-cli.jar
-
       - name: Install Leiningen
         uses: DeLaGuardo/setup-clojure@master
         with:
@@ -80,11 +70,6 @@ jobs:
     name: Build native MacOS binary
     runs-on: macos-latest
     steps:
-      - uses: actions/checkout@v2
-      - uses: actions/download-artifact@v2
-        with:
-          name: hiccup-cli.jar
-
       - name: Install Leiningen
         uses: DeLaGuardo/setup-clojure@master
         with:
@@ -114,11 +99,6 @@ jobs:
     name: Build native Windows binary
     runs-on: windows-latest
     steps:
-      - uses: actions/checkout@v2
-      - uses: actions/download-artifact@v2
-        with:
-          name: hiccup-cli.jar
-
       - name: Install Leiningen
         uses: DeLaGuardo/setup-clojure@master
         with:
