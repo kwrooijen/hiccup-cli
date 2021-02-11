@@ -4,20 +4,13 @@ Command line tool / Emacs plugin to convert HTML to Hiccup syntax.
 
 ## Installation
 
-### Building hiccup-cli
+### Install hiccup-cli
 
-Make sure you have GraalVM installed.
-
-```bash
-git clone git@github.com:kwrooije/hiccup-cli
-cd hiccup-cli
-lein native-image
-sudo cp target/hiccup-cli-0.1.0-SNAPSHOT /usr/local/bin/hiccup-cli
-```
+Download hiccup-cli from the [releases page](https://github.com/kwrooijen/hiccup-cli/releases).
 
 ### Emacs 
 
-This package can be installed through [melpa](https://melpa.org/):
+The Emacs package can be installed through [melpa](https://melpa.org/):
 
 ```
 M-x package-install hiccup-cli
@@ -25,11 +18,11 @@ M-x package-install hiccup-cli
 
 ## Usage
 
-| Function                     |
-|------------------------------|
-| hiccup-cli--paste-as-hiccup  |
-| hiccup-cli--region-as-hiccup |
-| hiccup-cli--yank-as-hiccup   |
+| Function                    |
+|-----------------------------|
+| hiccup-cli-paste-as-hiccup  |
+| hiccup-cli-region-as-hiccup |
+| hiccup-cli-yank-as-hiccup   |
 
 
 Use `hiccup-cli--region-as-hiccup` to transform the selected HTML to Hiccup syntax
@@ -40,6 +33,20 @@ Use `hiccup-cli--region-as-hiccup` to transform the selected HTML to Hiccup synt
 Use `hiccup-cli--yank-as-hiccup` or `hiccup-cli--paste-as-hiccup` to paste HTML as Hiccup from either your kill-ring or clipboard
 
 ![hiccup yank](https://raw.githubusercontent.com/kwrooijen/hiccup-cli/master/assets/hiccup-yank.gif)
+
+
+## Development
+
+### Building hiccup-cli
+
+Make sure you have GraalVM installed.
+
+```bash
+git clone git@github.com:kwrooije/hiccup-cli
+cd hiccup-cli
+lein native-image
+sudo cp target/hiccup-cli-0.1.0-SNAPSHOT /usr/local/bin/hiccup-cli
+```
 
 
 ## Author / License
