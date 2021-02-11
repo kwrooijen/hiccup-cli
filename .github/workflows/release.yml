@@ -193,7 +193,7 @@ jobs:
         uses: svenstaro/upload-release-action@v2
         with:
           repo_token: ${{ secrets.GITHUB_TOKEN }}
-          file: hiccup-cli-static-linux-amd64.zip/hiccup-cli-linux-amd64.zip
+          file: hiccup-cli-static-linux-amd64.zip/hiccup-cli-static-linux-amd64.zip
           asset_name: hiccup-cli-static-linux-amd64.zip
           tag: ${{ steps.latest-tag.outputs.tag }}
 

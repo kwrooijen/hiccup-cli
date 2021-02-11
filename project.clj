@@ -1,3 +1,7 @@
+(defn windows? []
+  (-> (System/getProperty "os.name")
+      (clojure.string/starts-with? "Windows")))
+
 (defn  native-image-args []
   (filter identity
           [(when (System/getenv "HICCUP_CLI_STATIC") "--static")
@@ -12,8 +16,8 @@
            "-H:+ReportExceptionStackTraces"
            "-H:EnableURLProtocols=https,http"]))
 
-(defn native-output []
-  (if (-> (System/getProperty "os.name") (clojure.string/starts-with? "Windows"))
+(defn native-image-output []
+  (if (windows?)
     "..\\hiccup-cli"
     "../hiccup-cli"))
 
@@ -32,7 +36,7 @@
   :main ^:skip-aot hiccup-cli.core
   :resource-paths ["resources"]
   :source-paths ["src"]
-  :native-image {:name #=(native-output)
+  :native-image {:name #=(native-image-output)
                  :opts #=(native-image-args)}
 
   :uberjar-name "hiccup-cli-main.jar"
