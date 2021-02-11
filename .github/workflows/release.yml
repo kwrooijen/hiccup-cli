@@ -1,0 +1,210 @@
+name: Release
+
+on:
+  push:
+    tags:
+      - '*'
+
+jobs:
+  native-linux:
+    name: Build native linux binary
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions/download-artifact@v2
+        with:
+          name: hiccup-cli.jar
+
+      - name: Install Leiningen
+        uses: DeLaGuardo/setup-clojure@master
+        with:
+          lein: 2.9.1
+
+      - name: Install GraalVM
+        uses: DeLaGuardo/setup-graalvm@master
+        with:
+          graalvm-version: 21.0.0.java11
+
+      - name: Install native-image component
+        run: |
+          gu install native-image
+      - name: Build Linux native image
+        run: |
+          lein native-image
+      - name: Zip binary
+        run: zip hiccup-cli-linux-amd64.zip target/hiccup-cli
+
+      - name: Upload
+        uses: actions/upload-artifact@v2
+        with:
+          path: hiccup-cli-linux-amd64.zip
+          name: hiccup-cli-linux-amd64.zip
+
+  native-static-linux:
+    name: Build native static linux binary
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions/download-artifact@v2
+        with:
+          name: hiccup-cli.jar
+
+      - name: Install Leiningen
+        uses: DeLaGuardo/setup-clojure@master
+        with:
+          lein: 2.9.1
+
+      - name: Install GraalVM
+        uses: DeLaGuardo/setup-graalvm@master
+        with:
+          graalvm-version: 21.0.0.java11
+
+      - name: Install native-image component
+        run: |
+          gu install native-image
+      - name: Build Linux native static image
+        env:
+          HICCUP_CLI_STATIC: true
+        run: |
+          lein native-image
+      - name: Zip binary
+        run: zip hiccup-cli-static-linux-amd64.zip target/hiccup-cli
+
+      - name: Upload
+        uses: actions/upload-artifact@v2
+        with:
+          path: hiccup-cli-static-linux-amd64.zip
+          name: hiccup-cli-static-linux-amd64.zip
+
+  native-macos:
+    name: Build native MacOS binary
+    runs-on: macos-latest
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions/download-artifact@v2
+        with:
+          name: hiccup-cli.jar
+
+      - name: Install Leiningen
+        uses: DeLaGuardo/setup-clojure@master
+        with:
+          lein: 2.9.1
+
+      - name: Install GraalVM
+        uses: DeLaGuardo/setup-graalvm@master
+        with:
+          graalvm-version: 21.0.0.java11
+
+      - name: Install native-image component
+        run: |
+          gu install native-image
+      - name: Build MacOS native image
+        run: |
+          lein native-image
+      - name: Zip binary
+        run: zip hiccup-cli-macos-amd64.zip target/hiccup-cli
+
+      - name: Upload
+        uses: actions/upload-artifact@v2
+        with:
+          path: hiccup-cli-macos-amd64.zip
+          name: hiccup-cli-macos-amd64.zip
+
+  native-windows:
+    name: Build native Windows binary
+    runs-on: windows-latest
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions/download-artifact@v2
+        with:
+          name: hiccup-cli.jar
+
+      - name: Install Leiningen
+        uses: DeLaGuardo/setup-clojure@master
+        with:
+          lein: 2.9.1
+      - name: Install MSVC
+        uses: ilammy/msvc-dev-cmd@v1
+
+      - name: Install GraalVM
+        uses: DeLaGuardo/setup-graalvm@master
+        with:
+          graalvm-version: 21.0.0.java11
+
+      - name: Install native-image component
+        run: |
+          gu.cmd install native-image
+      - name: Build Windows native image
+        run: |
+          lein native-image
+      - name: Zip binary
+        run: jar -cMf hiccup-cli-windows-amd64.zip target/hiccup-cli.exe
+
+      - name: Upload
+        uses: actions/upload-artifact@v2
+        with:
+          path: hiccup-cli-windows-amd64.zip
+          name: hiccup-cli-windows-amd64.zip
+
+  release:
+    name: Create Release
+    needs: [native-linux, native-macos, native-windows]
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v1
+      - name: Get latest tag
+        id: latest-tag
+        uses: WyriHaximus/github-action-get-previous-tag@v1
+
+      - name: Create Release
+        id: create_release
+        uses: actions/create-release@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          tag_name: ${{ steps.latest-tag.outputs.tag}}
+          release_name: ${{ steps.latest-tag.outputs.tag}}
+
+  upload-to-release:
+    name: Upload artifacts to release
+    needs: [release]
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v1
+      - name: Get latest tag
+        id: latest-tag
+        uses: WyriHaximus/github-action-get-previous-tag@v1
+
+      - uses: actions/download-artifact@v2
+
+      - name: Upload Linux native binary
+        uses: svenstaro/upload-release-action@v2
+        with:
+          repo_token: ${{ secrets.GITHUB_TOKEN }}
+          file: hiccup-cli-linux-amd64.zip/hiccup-cli-linux-amd64.zip
+          asset_name: hiccup-cli-linux-amd64.zip
+          tag: ${{ steps.latest-tag.outputs.tag }}
+
+      - name: Upload Linux native static binary
+        uses: svenstaro/upload-release-action@v2
+        with:
+          repo_token: ${{ secrets.GITHUB_TOKEN }}
+          file: hiccup-cli-static-linux-amd64.zip/hiccup-cli-linux-amd64.zip
+          asset_name: hiccup-cli-static-linux-amd64.zip
+          tag: ${{ steps.latest-tag.outputs.tag }}
+
+      - name: Upload MacOS native binary
+        uses: svenstaro/upload-release-action@v2
+        with:
+          repo_token: ${{ secrets.GITHUB_TOKEN }}
+          file: hiccup-cli-macos-amd64.zip/hiccup-cli-macos-amd64.zip
+          asset_name: hiccup-cli-macos-amd64.zip
+          tag: ${{ steps.latest-tag.outputs.tag}}
+
+      - name: Upload Windows native binary
+        uses: svenstaro/upload-release-action@v2
+        with:
+          repo_token: ${{ secrets.GITHUB_TOKEN }}
+          file: hiccup-cli-windows-amd64.zip/hiccup-cli-windows-amd64.zip
+          asset_name: hiccup-cli-windows-amd64.zip
+          tag: ${{ steps.latest-tag.outputs.tag}}
