@@ -25,12 +25,12 @@ M-x package-install hiccup-cli
 | hiccup-cli-yank-as-hiccup   |
 
 
-Use `hiccup-cli--region-as-hiccup` to transform the selected HTML to Hiccup syntax
+Use `hiccup-cli-region-as-hiccup` to transform the selected HTML to Hiccup syntax
 
 ![hiccup region replace](https://raw.githubusercontent.com/kwrooijen/hiccup-cli/master/assets/hiccup-region-replace.gif)
 
 
-Use `hiccup-cli--yank-as-hiccup` or `hiccup-cli--paste-as-hiccup` to paste HTML as Hiccup from either your kill-ring or clipboard
+Use `hiccup-cli-yank-as-hiccup` or `hiccup-cli-paste-as-hiccup` to paste HTML as Hiccup from either your kill-ring or clipboard
 
 ![hiccup yank](https://raw.githubusercontent.com/kwrooijen/hiccup-cli/master/assets/hiccup-yank.gif)
 
