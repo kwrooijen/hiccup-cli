@@ -60,7 +60,7 @@ hiccup-cli --html-file "$middle"
 
 ### Vim Screenshots
 ![before](https://user-images.githubusercontent.com/3061798/252752003-925c2cf0-0787-497e-9ba3-a7a8ca88c41f.png)
-![after](https://user-images.githubusercontent.com/3061798/252752003-925c2cf0-0787-497e-9ba3-a7a8ca88c41f.png)
+![after](https://user-images.githubusercontent.com/3061798/252752021-df4478db-4a25-468b-9cb1-2c1ff8aed82d.png)
 
 ## Development
 
