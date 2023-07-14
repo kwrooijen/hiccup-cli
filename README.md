@@ -40,7 +40,7 @@ Use `hiccup-cli-yank-as-hiccup` or `hiccup-cli-paste-as-hiccup` to paste HTML as
 ### Installation and configuration
 
 1. Download the hiccup-cli binary from [here](https://github.com/kwrooijen/hiccup-cli/releases).
-2. Move hiccup-cli to /usr/local/bin/hiccup-cli
+2. Add hiccup-cli to your `$PATH`
 3. Because the hiccup-cli does not support reading from stdin, we need to configure it with a bash script called `html2hiccup`.
 
 ``` bash html2hiccup
@@ -54,11 +54,11 @@ done
 hiccup-cli --html-file "$middle"
 ```
 
-Add this script to your `$PATH`
+4. Add `html2hiccup` to your `$PATH`
 
 [vim reference with external command](https://learnvim.irian.to/basics/external_commands#filtering-texts)
 
-### Screenshots
+### Vim Screenshots
 ![before](https://user-images.githubusercontent.com/3061798/252752003-925c2cf0-0787-497e-9ba3-a7a8ca88c41f.png)
 ![after](https://user-images.githubusercontent.com/3061798/252752003-925c2cf0-0787-497e-9ba3-a7a8ca88c41f.png)
 
